@@ -65,7 +65,7 @@ def pairwise_cosine(x_sample: np.ndarray, y_sample: np.ndarray) -> np.ndarray:
     return c_dist
 
 
-def random_binary_matrix(n, m, k, rng):
+def random_binary_matrix(m, n, k, rng):
     """Generate a random binary matrix of n*m with exactly k values in 1 per row.
     Args:
     n: Number of rows.
@@ -75,9 +75,8 @@ def random_binary_matrix(n, m, k, rng):
     Returns:
     A: Random binary matrix of n*m with exactly k values in 1 per row.
     """
-
     # Initialize the matrix.
-    matrix = np.zeros((n, m), dtype=int)
+    matrix = np.zeros((m, n), dtype=np.int32)
     matrix[:, :k] = 1
 
     # Shuffle inplace

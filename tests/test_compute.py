@@ -32,8 +32,8 @@ def _test_corrcoef(backend):
     n_pairs = 20
     n_feats = 5
     batch_size = 4
-    feats = rng.uniform(0, 1, [n_samples, n_feats])
-    pairs = rng.integers(0, n_samples - 1, [n_pairs, 2])
+    feats = rng.uniform(0, 1, [n_samples, n_feats]).astype(np.float32)
+    pairs = rng.integers(0, n_samples - 1, [n_pairs, 2]).astype(np.int32)
 
     corr_gt = corrcoef_naive(feats, pairs)
     corr = backend.pairwise_indexed(feats, pairs, backend.pairwise_corr,
@@ -46,8 +46,8 @@ def _test_cosine(backend):
     n_pairs = 20
     n_feats = 5
     batch_size = 4
-    feats = rng.uniform(0, 1, [n_samples, n_feats])
-    pairs = rng.integers(0, n_samples - 1, [n_pairs, 2])
+    feats = rng.uniform(0, 1, [n_samples, n_feats]).astype(np.float32)
+    pairs = rng.integers(0, n_samples - 1, [n_pairs, 2]).astype(np.int32)
 
     cosine_gt = cosine_naive(feats, pairs)
     cosine = backend.pairwise_indexed(feats, pairs, backend.pairwise_cosine,
@@ -68,6 +68,6 @@ def test_corrcoef_tf():
     _test_corrcoef(compute_tf)
 
 
-@pytest.mark.skipif(not TF_ENABLED, reason="tensorflow_prob not installed")
+@pytest.mark.skipif(not TF_ENABLED, reason="tensorflow not installed")
 def test_cosine_tf():
     _test_cosine(compute_tf)
